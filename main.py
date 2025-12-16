@@ -179,6 +179,34 @@ class Explosion(pg.sprite.Sprite):
         if self.life < 0:
             self.kill()
 
+class Bullet(pg.sprite.Sprite):
+    """
+    敵機の爆弾に関するクラス
+    """
+    def __init__(self, image: pg.Surface, direction: tuple[float, float], speed: float):
+        """
+        敵機が放つ爆弾画像Surfaceを生成する
+        引数1 enemy：爆弾を放つ敵機
+        引数2 bird：こうかとん
+        """
+        super().__init__()
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.center = WIDTH//2, HEIGHT//2
+        self.vx, self.vy = direction
+        self.speed = speed
+
+
+    def update(self):
+        """
+        爆弾を速度ベクトルself.vx, self.vyに基づき移動させる
+        引数 screen：画面Surface
+        """
+        self.rect.move_ip(self.speed*self.vx, self.speed*self.vy)
+        if check_bound(self.rect) != (True, True):
+            self.kill()
+
+
 
 class Enemy(pg.sprite.Sprite):
     """
@@ -232,7 +260,7 @@ class Boss(Enemy):
             self.vy = 0
             self.state = "stop"
         self.rect.move_ip(self.vx, self.vy)
-        
+              
 
 
 def main():
