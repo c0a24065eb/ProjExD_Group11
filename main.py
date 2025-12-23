@@ -373,7 +373,7 @@ class Life(pg.sprite.Sprite):
     """
     def __init__(self):
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 50)
-        self.color = (0, 0, 0)
+        self.color = (255, 255, 255)
         self.value = 3
         self.invisible_time = 0
         self.image = self.font.render(f"残りライフ：{self.value}", 0, self.color)
