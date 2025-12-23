@@ -475,11 +475,8 @@ def main():
 
         for bullet in pg.sprite.spritecollide(bird, bullets, True):
             exps.add(Explosion(bullet, 10))  # 爆発エフェクト
-        if pg.sprite.spritecollide(bird, points, True):
-            score.value += 50  # ポイントアイテム獲得時の獲得ポイント
-        
-        for bomb in pg.sprite.spritecollide(bird, bullets, True):  # こうかとんと衝突した爆弾リスト
-            if getattr(bomb,"state","active") == "active":
+
+            if getattr(bullet,"state","active") == "active":
                 bird.change_img(8, screen)  # こうかとん悲しみエフェクト
                 life.decrease()
                 pg.display.update()
@@ -490,6 +487,9 @@ def main():
                 pg.display.update()
                 time.sleep(1)
                 return
+            
+        if pg.sprite.spritecollide(bird, points, True):
+            score.value += 50  # ポイントアイテム獲得時の獲得ポイント
 
         
         bird.update(key_lst, screen)
